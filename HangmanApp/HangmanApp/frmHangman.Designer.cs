@@ -66,7 +66,8 @@
             tblAllLetters.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
             tblAllLetters.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
             tblAllLetters.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
-            tblAllLetters.Location = new Point(231, 329);
+            tblAllLetters.Location = new Point(106, 204);
+            tblAllLetters.MinimumSize = new Size(250, 250);
             tblAllLetters.Name = "tblAllLetters";
             tblAllLetters.RowCount = 6;
             tblAllLetters.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
@@ -75,7 +76,7 @@
             tblAllLetters.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
             tblAllLetters.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
             tblAllLetters.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666666F));
-            tblAllLetters.Size = new Size(0, 0);
+            tblAllLetters.Size = new Size(250, 250);
             tblAllLetters.TabIndex = 3;
             // 
             // tblWord
@@ -92,7 +93,6 @@
             tblWord.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
             tblWord.Size = new Size(54, 50);
             tblWord.TabIndex = 1;
-            tblWord.Visible = false;
             // 
             // btnStart
             // 
@@ -103,6 +103,7 @@
             btnStart.Name = "btnStart";
             btnStart.Size = new Size(104, 30);
             btnStart.TabIndex = 0;
+            btnStart.Tag = "";
             btnStart.Text = "Start";
             btnStart.UseVisualStyleBackColor = false;
             // 

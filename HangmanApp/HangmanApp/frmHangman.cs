@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics.Metrics;
-using System.Drawing;
-using System.Drawing.Printing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Data;
 using gnuciDictionary;
 
 namespace HangmanApp
@@ -101,20 +91,9 @@ namespace HangmanApp
             {
                 GameStatusEnum.Inactive => "Click Start to Begin Playing",
                 GameStatusEnum.Playing => Lives + "/5 Lives left: " + randomword,
-                GameStatusEnum.Won => "You Won, Click Start for a new Game",
-                GameStatusEnum.Lost => "Lost, the word was \"" + randomword + "\""
+                GameStatusEnum.Won => "You Won",
+                GameStatusEnum.Lost => "You Lost"
             };
-        }
-
-        private void SetTableWord()
-        {
-            randomword = "";
-            randomword = lstwords[new Random().Next(lstwords.Count)].Value.ToUpper();
-            List<char> lst = randomword.ToList();
-            lst.ForEach(c => tblWord.Controls.Add(GetNewButton()));
-            tblWord.ColumnCount = lst.Count;
-            tblWord.Visible = true;
-            this.Width = lst.Count * 60;
         }
 
         private void ResetLetterButtons()
@@ -131,6 +110,74 @@ namespace HangmanApp
             }
         }
 
+        private void GuessLetter(Button btn)
+        {
+            if (btn.Enabled)
+            {
+                btn.Enabled = false;
+
+                if (randomword.Contains(btn.Text))
+                {
+                    btn.BackColor = btnwinbackcolor;
+                    if (SetWordButtons(btn))
+                    {
+                        gamestatus = GameStatusEnum.Won;
+                        ResetLetterButtons();
+                    }
+                }
+                else
+                {
+                    btn.BackColor = btnlossbackcolor;
+                    Lives -= 1;
+                    if (Lives < 1)
+                    {
+                        gamestatus = GameStatusEnum.Lost;
+                        ResetLetterButtons();
+                        SetWordButtons(btn);
+                    }
+                }
+
+                DisplayGameStatus();
+            }
+        }
+
+        private bool SetWordButtons(Button btn)
+        {
+            List<char> lst = randomword.ToList();
+            int counter = 0;
+            bool iswin = true;
+
+            foreach (Control c in tblWord.Controls)
+            {
+                if (c is Button)
+                {
+                    string s = lst[counter].ToString();
+                    if (gamestatus == GameStatusEnum.Playing)
+                    {
+                        if (btn.Text == s)
+                        {
+                            c.BackColor = btnwinbackcolor;
+                            c.Text = s;
+                        }
+                        else if (c.Text == "")
+                        {
+                            iswin = false;
+                        }
+                    }
+                    else
+                    {
+                        if (c.Text == "")
+                        {
+                            c.BackColor = btnlossbackcolor;
+                            c.Text = s;
+                        }
+                    }
+                    counter++;
+                }
+            }
+            return iswin;
+        }
+
         private void StartGame()
         {
             gamestatus = GameStatusEnum.Playing;
@@ -141,69 +188,15 @@ namespace HangmanApp
             ResetLetterButtons();
         }
 
-        private void GuessLetter(Button btn)
+        private void SetTableWord()
         {
-            if (!btn.Enabled)
-            {
-                return;
-            }
-
-            btn.Enabled = false;
-
-            if (!randomword.Contains(btn.Text))
-            {
-                btn.BackColor = btnlossbackcolor;
-                Lives -= 1;
-            }
-            else
-            {
-                btn.BackColor = btnwinbackcolor;
-                List<char> lst = randomword.ToList();
-                int counter = 0;
-                foreach (char c in lst)
-                {
-                    if (c.ToString() == btn.Text)
-                    {
-                        Button btnletter = (Button)tblWord.GetControlFromPosition(counter, 0);
-                        btnletter.Text = btn.Text;
-                    }
-                    counter++;
-                }
-            }
-
-            if (DetectLoss())
-            {
-                gamestatus = GameStatusEnum.Lost;
-                ResetLetterButtons();
-            }
-            else if (DetectWin())
-            {
-                gamestatus = GameStatusEnum.Won;
-                ResetLetterButtons();
-            }
-
-            DisplayGameStatus();
-        }
-
-        private bool DetectLoss()
-        {
-            return Lives < 1;
-        }
-
-        private bool DetectWin()
-        {
+            randomword = "";
+            randomword = lstwords[new Random().Next(lstwords.Count)].Value.ToUpper();
             List<char> lst = randomword.ToList();
-            int counter = 0;
-            foreach (Control c in tblWord.Controls)
-            {
-                string s = lst[counter].ToString();
-                if (c.Text == "" || c.Text != s)
-                {
-                    return false;
-                }
-                counter++;
-            }
-            return true;
+            tblWord.Controls.Clear();
+            lst.ForEach(c => tblWord.Controls.Add(GetNewButton()));
+            tblWord.ColumnCount = lst.Count;
+            this.Width = lst.Count * 60;
         }
 
         private void BtnLetter_Click(object? sender, EventArgs e)
