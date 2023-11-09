@@ -5,15 +5,17 @@ namespace HangmanApp
 {
     public partial class frmHangman : Form
     {
-        List<char> lstallletters = new();
         List<Word> lstwords;
         string randomword;
         List<Button> lstletterbuttons = new();
+
         private enum GameStatusEnum { Inactive, Playing, Won, Lost };
         GameStatusEnum gamestatus = GameStatusEnum.Inactive;
+
         Color btndefaultbackcolor = Color.AliceBlue;
         Color btnwinbackcolor = Color.LightGreen;
         Color btnlossbackcolor = Color.PaleVioletRed;
+
         int Lives = 5;
 
         public frmHangman()
@@ -24,22 +26,10 @@ namespace HangmanApp
             btnStart.Click += BtnStart_Click;
 
             lstwords = EnglishDictionary.GetAllWords().Where(w =>
-                OnlyContainsAlphabeticChars(w.Value)
-                && w.Value.Length >= 5
-                && w.Value.Length <= 8)
+                w.Value.All(c => char.IsLetter(c))
+                && w.Value.Length >= 4
+                && w.Value.Length <= 7)
                 .ToList();
-        }
-
-        private bool OnlyContainsAlphabeticChars(string word)
-        {
-            foreach (char c in word)
-            {
-                if (!char.IsLetter(c))
-                {
-                    return false;
-                }
-            }
-            return true;
         }
 
         private void SetLetterButtons()
@@ -155,13 +145,10 @@ namespace HangmanApp
                             iswin = false;
                         }
                     }
-                    else
+                    else if (c.Text == "")
                     {
-                        if (c.Text == "")
-                        {
-                            c.BackColor = btnlossbackcolor;
-                            c.Text = s;
-                        }
+                        c.BackColor = btnlossbackcolor;
+                        c.Text = s;
                     }
                     counter++;
                 }
@@ -184,7 +171,7 @@ namespace HangmanApp
             randomword = lstwords[new Random().Next(lstwords.Count)].Value.ToUpper();
             List<char> lst = randomword.ToList();
             tblWord.Controls.Clear();
-            lst.ForEach(c => tblWord.Controls.Add(GetNewButton()));
+            randomword.ToList().ForEach(c => tblWord.Controls.Add(GetNewButton()));
             tblWord.ColumnCount = lst.Count;
             this.Width = lst.Count * 60;
         }
