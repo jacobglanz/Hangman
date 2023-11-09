@@ -19,7 +19,6 @@ namespace HangmanApp
         public frmHangman()
         {
             InitializeComponent();
-            SetAllLettersList();
             SetLetterButtons();
             DisplayGameStatus();
             btnStart.Click += BtnStart_Click;
@@ -29,14 +28,6 @@ namespace HangmanApp
                 && w.Value.Length >= 5
                 && w.Value.Length <= 8)
                 .ToList();
-        }
-
-        private void SetAllLettersList()
-        {
-            for (char letter = 'A'; letter <= 'Z'; letter++)
-            {
-                lstallletters.Add(letter);
-            }
         }
 
         private bool OnlyContainsAlphabeticChars(string word)
@@ -53,14 +44,14 @@ namespace HangmanApp
 
         private void SetLetterButtons()
         {
-            foreach (var l in lstallletters)
+            for (char c = 'A'; c <= 'Z'; c++)
             {
-                Button btn = GetNewButton(l.ToString());
+                Button btn = GetNewButton(c.ToString());
                 tblAllLetters.Controls.Add(btn);
                 lstletterbuttons.Add(btn);
                 btn.Click += BtnLetter_Click;
 
-                if (l == 'Z')
+                if (c == 'Z')
                 {
                     tblAllLetters.SetColumnSpan(btn, 5);
                 }
@@ -90,7 +81,7 @@ namespace HangmanApp
             lblStatus.Text = gamestatus switch
             {
                 GameStatusEnum.Inactive => "Click Start to Begin Playing",
-                GameStatusEnum.Playing => Lives + "/5 Lives left: " + randomword,
+                GameStatusEnum.Playing => Lives + "/5 Lives left",
                 GameStatusEnum.Won => "You Won",
                 GameStatusEnum.Lost => "You Lost"
             };
@@ -190,7 +181,6 @@ namespace HangmanApp
 
         private void SetTableWord()
         {
-            randomword = "";
             randomword = lstwords[new Random().Next(lstwords.Count)].Value.ToUpper();
             List<char> lst = randomword.ToList();
             tblWord.Controls.Clear();
