@@ -6,6 +6,8 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>Hangman</AssemblyName>
+    <ApplicationIcon>images\hangman.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>

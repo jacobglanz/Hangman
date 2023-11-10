@@ -6,7 +6,7 @@ namespace HangmanApp
     public partial class frmHangman : Form
     {
         List<Word> lstwords;
-        string randomword;
+        string randomword = "";
         List<Button> lstletterbuttons = new();
 
         private enum GameStatusEnum { Inactive, Playing, Won, Lost };
@@ -16,6 +16,8 @@ namespace HangmanApp
         Color btnwinbackcolor = Color.LightGreen;
         Color btnlossbackcolor = Color.PaleVioletRed;
 
+        string path = Application.StartupPath + @"\images\hangman.ico";
+        
         int Lives = 5;
 
         public frmHangman()
@@ -73,7 +75,7 @@ namespace HangmanApp
                 GameStatusEnum.Inactive => "Click Start to Begin Playing",
                 GameStatusEnum.Playing => Lives + "/5 Lives left",
                 GameStatusEnum.Won => "You Won",
-                GameStatusEnum.Lost => "You Lost"
+                _ => "You Lost"
             };
         }
 
@@ -171,8 +173,8 @@ namespace HangmanApp
             randomword = lstwords[new Random().Next(lstwords.Count)].Value.ToUpper();
             List<char> lst = randomword.ToList();
             tblWord.Controls.Clear();
-            randomword.ToList().ForEach(c => tblWord.Controls.Add(GetNewButton()));
             tblWord.ColumnCount = lst.Count;
+            lst.ForEach(c => tblWord.Controls.Add(GetNewButton()));
             this.Width = lst.Count * 60;
         }
 
