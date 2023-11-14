@@ -94,6 +94,7 @@ namespace HangmanApp
 
         private void GuessLetter(Button btn)
         {
+            //SM You won't be able to click the button if it's not enabled.
             if (btn.Enabled)
             {
                 btn.Enabled = false;
@@ -146,6 +147,8 @@ namespace HangmanApp
                             iswin = false;
                         }
                     }
+                    //SM This else in not needed. It will never get in here, and it should never get here.
+                    //Because the program should not get in this procedure if it's not playing.
                     else if (c.Text == "")
                     {
                         c.BackColor = btnlossbackcolor;
@@ -173,6 +176,7 @@ namespace HangmanApp
             List<char> lst = randomword.ToList();
             tblWord.Controls.Clear();
             //SM Why do you make the letters of the word a button?
+            //And why don't you use lst?
             randomword.ToList().ForEach(c => tblWord.Controls.Add(GetNewButton()));
             tblWord.ColumnCount = lst.Count;
             //SM Why do you change the width of the form every time? It doesn't look good that the form is changing sizes every time there's a new word.
