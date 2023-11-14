@@ -32,6 +32,7 @@ namespace HangmanApp
                 .ToList();
         }
 
+        //SM Why do you need to add the letters here? Why don't you add them in UI designer?
         private void SetLetterButtons()
         {
             for (char c = 'A'; c <= 'Z'; c++)
@@ -171,8 +172,10 @@ namespace HangmanApp
             randomword = lstwords[new Random().Next(lstwords.Count)].Value.ToUpper();
             List<char> lst = randomword.ToList();
             tblWord.Controls.Clear();
+            //SM Why do you make the letters of the word a button?
             randomword.ToList().ForEach(c => tblWord.Controls.Add(GetNewButton()));
             tblWord.ColumnCount = lst.Count;
+            //SM Why do you change the width of the form every time? It doesn't look good that the form is changing sizes every time there's a new word.
             this.Width = lst.Count * 60;
         }
 
