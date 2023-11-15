@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HangmanApp", "HangmanApp\HangmanApp.csproj", "{B2A29B17-C950-4974-9076-8D9F35668667}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HangmanAppWinForms", "HangmanAppWinForms\HangmanAppWinForms.csproj", "{B2A29B17-C950-4974-9076-8D9F35668667}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
