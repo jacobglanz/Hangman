@@ -10,7 +10,6 @@ namespace HangmanApp
         string randomworddefinition;
         List<char> randomwordlst;
         List<Button> lstletterbuttons = new();
-        List<Button> lstwordbuttons = new();
 
         private enum GameStatusEnum { Inactive, Playing, Won, Lost };
         GameStatusEnum gamestatus = GameStatusEnum.Inactive;
@@ -40,14 +39,6 @@ namespace HangmanApp
                     btn.Click += BtnLetter_Click;
                 }
             }
-            //SM What does this loop do? It never goes into the loop.
-            foreach (Control c in tblWord.Controls)
-            {
-                if (c is Button)
-                {
-                    lstwordbuttons.Add((Button)c);
-                }
-            }
         }
 
         private void StartGame()
@@ -69,17 +60,14 @@ namespace HangmanApp
             randomworddefinition = w.Definition;
             randomwordlst = randomword.ToCharArray().ToList();
             tblWord.Controls.Clear();
-            //SM Why do you make the letters of the word a button?
-            //It looks like a button to me, Am i missing something?
-            //SM This is my question. Why do you need it to be buttons?
-            randomwordlst.ForEach(c => tblWord.Controls.Add(GetNewButton()));
+            randomwordlst.ForEach(c => tblWord.Controls.Add(GetNewLabel()));
             tblWord.ColumnCount = randomwordlst.Count;
         }
 
-        private Button GetNewButton(string letter = "")
+        private Label GetNewLabel(string letter = "")
         {
             Padding padding = new() { Top = 3, Left = 3, Bottom = 3, Right = 3 };
-            Button btn = new()
+            Label lbl = new()
             {
                 Text = letter,
                 Name = "lbl" + letter,
@@ -91,57 +79,25 @@ namespace HangmanApp
                 Margin = padding,
                 Enabled = false
             };
-            return btn;
+            return lbl;
         }
 
         private void GuessLetter(Button btn)
         {
-            //SM You won't be able to click the button if it's not enabled.
-            //JG When btn clicked it get's disabled and marked either correct or incorrect. If user starts a new game it get's enabled
-            //    and if you try to click it again nothing happens because its disabled already.
-            //SM The only code that is calling this procedure is the button click event. That event will ONLY be raised if the user clicks the button.
-            //The user will ONLY be able to click the button if it is enabled.
-            if (btn.Enabled)
+            btn.Enabled = false;
+            if (randomword.Contains(btn.Text))
             {
-                btn.Enabled = false;
-                if (randomword.Contains(btn.Text))
-                {
-                    btn.BackColor = btnwinbackcolor;
-                    DetectWin();
-                }
-                else
-                {
-                    btn.BackColor = btnlossbackcolor;
-                    Lives -= 1;
-                    DetectLoss();
-                }
+                btn.BackColor = btnwinbackcolor;
                 SetWordButtons(btn);
-                DisplayGameStatus();
+                DetectWin();
             }
-        }
-
-        private void SetWordButtons(Button btn)
-        {
-            int counter = 0;
-
-            foreach (Control c in tblWord.Controls)
+            else
             {
-                if (c is Button)
-                {
-                    string s = randomwordlst[counter].ToString();
-                    if (s == btn.Text)
-                    {
-                        c.Text = s;
-                        c.BackColor = btnwinbackcolor;
-                    }
-                    else if (c.Text == "" && gamestatus == GameStatusEnum.Lost && c.Text == "")
-                    {
-                        c.Text = s;
-                        c.BackColor = btnlossbackcolor;
-                    }
-                    counter++;
-                }
+                btn.BackColor = btnlossbackcolor;
+                Lives -= 1;
+                DetectLoss(btn);                
             }
+            DisplayGameStatus();
         }
 
         private void DetectWin()
@@ -149,7 +105,7 @@ namespace HangmanApp
             bool iswin = true;
             foreach (Control c in tblWord.Controls)
             {
-                if (c.Text == "")
+                if (c is Label && c.Text == "")
                 {
                     iswin = false;
                 }
@@ -163,19 +119,39 @@ namespace HangmanApp
             }
         }
 
-        private void DetectLoss()
+        private void DetectLoss(Button btn)
         {
-            bool isloss = true;
-            if (Lives > 0)
-            {
-                isloss = false;
-            }
-            if (isloss)
+            if (Lives < 1)
             {
                 gamestatus = GameStatusEnum.Lost;
+                SetWordButtons(btn);
                 ResetLetterButtons();
                 SetStartButtonText();
                 btnHint.Enabled = false;
+            }
+        }
+
+        private void SetWordButtons(Button btn)
+        {
+            int counter = 0;
+
+            foreach (Control c in tblWord.Controls)
+            {
+                if (c is Label)
+                {
+                    string s = randomwordlst[counter].ToString();
+                    if (s == btn.Text)
+                    {
+                        c.Text = s;
+                        c.BackColor = btnwinbackcolor;
+                    }
+                    else if (c.Text == "" && gamestatus == GameStatusEnum.Lost)
+                    {
+                        c.Text = s;
+                        c.BackColor = btnlossbackcolor;
+                    }
+                    counter++;
+                }
             }
         }
 
