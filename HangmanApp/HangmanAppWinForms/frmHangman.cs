@@ -40,7 +40,7 @@ namespace HangmanApp
                     btn.Click += BtnLetter_Click;
                 }
             }
-
+            //SM What does this loop do? It never goes into the loop.
             foreach (Control c in tblWord.Controls)
             {
                 if (c is Button)
@@ -71,7 +71,7 @@ namespace HangmanApp
             tblWord.Controls.Clear();
             //SM Why do you make the letters of the word a button?
             //It looks like a button to me, Am i missing something?
-            //And why don't you use lst?
+            //SM This is my question. Why do you need it to be buttons?
             randomwordlst.ForEach(c => tblWord.Controls.Add(GetNewButton()));
             tblWord.ColumnCount = randomwordlst.Count;
         }
@@ -99,6 +99,8 @@ namespace HangmanApp
             //SM You won't be able to click the button if it's not enabled.
             //JG When btn clicked it get's disabled and marked either correct or incorrect. If user starts a new game it get's enabled
             //    and if you try to click it again nothing happens because its disabled already.
+            //SM The only code that is calling this procedure is the button click event. That event will ONLY be raised if the user clicks the button.
+            //The user will ONLY be able to click the button if it is enabled.
             if (btn.Enabled)
             {
                 btn.Enabled = false;
