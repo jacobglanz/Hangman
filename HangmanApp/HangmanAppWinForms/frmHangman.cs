@@ -61,6 +61,7 @@ namespace HangmanApp
             randomwordlst = randomword.ToCharArray().ToList();
             tblWord.Controls.Clear();
             randomwordlst.ForEach(c => tblWord.Controls.Add(GetNewLabel()));
+            tblWord.ColumnCount = 0;
             tblWord.ColumnCount = randomwordlst.Count;
         }
 
@@ -95,7 +96,7 @@ namespace HangmanApp
             {
                 btn.BackColor = btnlossbackcolor;
                 Lives -= 1;
-                DetectLoss(btn);                
+                DetectLoss(btn);
             }
             DisplayGameStatus();
         }
