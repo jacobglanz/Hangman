@@ -4,10 +4,11 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:HangmanAppMAUI"
-    Shell.FlyoutBehavior="Disabled">
+    Shell.FlyoutBehavior="Disabled"
+    BackgroundColor="AliceBlue"
+    Title="Hangman">
 
     <ShellContent
-        Title="Hangman"
         ContentTemplate="{DataTemplate local:Hangman}"
         Route="Hangman" />
 

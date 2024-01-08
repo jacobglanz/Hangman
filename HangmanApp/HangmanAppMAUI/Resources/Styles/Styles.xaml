@@ -8,6 +8,7 @@
         <Setter Property="ColumnSpacing" Value="5"/>
         <Setter Property="RowSpacing" Value="5"/>
         <Setter Property="HorizontalOptions" Value="Center"/>
+        <Setter Property="VerticalOptions" Value="Center"/>
     </Style>
 
     <Style TargetType="HorizontalStackLayout">
@@ -58,22 +59,12 @@
         </Setter>
     </Style>
 
-    <Style TargetType="Button" x:Key="Success" CanCascade="True">
-        <Setter Property="BackgroundColor" Value="LightGreen"/>
-    </Style>
-
-    <Style TargetType="Button" x:Key="Fail" CanCascade="True">
-        <Setter Property="BackgroundColor" Value="PaleVioletRed"/>
-    </Style>
-    
-    <Style TargetType="Button" x:Key="Primary" CanCascade="True">
-        <Setter Property="BackgroundColor" Value="SteelBlue"/>
-        <Setter Property="MinimumWidthRequest" Value="100"/>
-    </Style>
-
-    <Style TargetType="Button" x:Key="Secondary" CanCascade="True">
-        <Setter Property="BackgroundColor" Value="LightBlue"/>
-        <Setter Property="MinimumWidthRequest" Value="100"/>
+    <Style TargetType="Button" x:Key="Letter" CanCascade="True">
+        <Setter Property="CornerRadius" Value="100"/>
+        <Setter Property="FontSize" Value="30"/>
+        <Setter Property="FontAttributes" Value="Bold"/>
+        <Setter Property="BorderWidth" Value="2"/>
+        <Setter Property="Padding" Value="0"/>
     </Style>
     <Style TargetType="CheckBox">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
@@ -162,8 +153,6 @@
         <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
         <Setter Property="Padding" Value="0"/>
         <Setter Property="CornerRadius" Value="8" />
-        <Setter Property="MaximumHeightRequest" Value="44"/>
-        <Setter Property="MinimumWidthRequest" Value="44"/>
     </Style>
 
     <Style TargetType="Frame" x:Key="LetterInitial" CanCascade="True">
