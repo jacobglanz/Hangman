@@ -63,19 +63,19 @@ namespace HangmanSystem
             }
         }
 
-        int GamesPlayed
+        public int GamesPlayed
         {
             get => _gamesPlayed;
-            set
+            internal set
             {
                 _gamesPlayed = value;
                 InvokePropertyChanged("Description");
             }
         }
-        int GamesWon
+        public int GamesWon
         {
             get => _gamesWon;
-            set
+            internal set
             {
                 _gamesWon = value;
                 InvokePropertyChanged("Description");
@@ -128,14 +128,7 @@ namespace HangmanSystem
             {
                 return;
             }
-
-            List<string> ltsStrs = new() { "G", "F", "A", "C" };
-            if (!ltsStrs.Contains(letter))
-            {
-                ltr.IsEnabled = false;
-            }
-
-
+            ltr.IsEnabled = false;
             if (CurrentWord.Value.Contains(letter))
             {
                 ltr.Color = GreenWinColor;
