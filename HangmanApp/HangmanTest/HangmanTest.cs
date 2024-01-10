@@ -17,40 +17,6 @@ namespace HangmanTest
         }
 
         [Test]
-        public void PlayGame()
-        {
-            Game game = new();
-
-            string desc = game.Description;
-            do
-            {
-                string c = Convert.ToChar(rnd.Next(65, 91)).ToString();
-                if (game.WordLetters.Count(l => l.PublicValue == c) == 0)
-                {
-                    game.GuessLetter(c);
-                }
-            }
-            while (game.Description == desc);
-        }
-
-        [Test]
-        public void RestartGame()
-        {
-            Game game = new();
-
-            string desc = game.Description;
-            do
-            {
-                string c = Convert.ToChar(rnd.Next(65, 91)).ToString();
-                if (game.WordLetters.Count(l => l.PublicValue == c) == 0)
-                {
-                    game.GuessLetter(c);
-                }
-            }
-            while (game.Description == desc);
-        }
-
-        [Test]
         public void WhenGuessingALetterItGetsDisabled()
         {
             Game game = new();
@@ -141,12 +107,5 @@ namespace HangmanTest
             Assert.IsTrue(empty, "Not all WordLetters PublicValue are empty");
             TestContext.WriteLine("All WordLetters PublicValue are empty");
         }
-
-        [Test]
-        public void AllLettersIsEnabledIsTrue()
-        {
-
-        }
-
     }
 }
