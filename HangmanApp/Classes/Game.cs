@@ -1,5 +1,4 @@
 ﻿using gnuciDictionary;
-using Microsoft.Maui.Graphics;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -17,10 +16,10 @@ namespace HangmanSystem
         string _description = "";
 
         public static System.Drawing.Color InitialBackColor = System.Drawing.Color.FromArgb(52, 152, 219);
-        public static System.Drawing.Color InitialLetterColor = System.Drawing.Color.White;
-        public static System.Drawing.Color WinColor = System.Drawing.Color.FromArgb(46, 204, 113);
-        public static System.Drawing.Color LossColor = System.Drawing.Color.FromArgb(192, 57, 43);
-        public static System.Drawing.Color DisabledColor = System.Drawing.Color.Gray;
+        public static System.Drawing.Color WhiteInitialLetterColor = System.Drawing.Color.White;
+        public static System.Drawing.Color GreenWinColor = System.Drawing.Color.FromArgb(46, 204, 113);
+        public static System.Drawing.Color RedLossColor = System.Drawing.Color.FromArgb(192, 57, 43);
+        public static System.Drawing.Color GrayDisabledColor = System.Drawing.Color.Gray;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -30,6 +29,7 @@ namespace HangmanSystem
                 w => w.Value.Length >= 7
                 && w.Value.Length <= 11
                 && !w.Definition.Contains(w.Value)
+                && !string.IsNullOrEmpty(w.Definition)
                 && w.Value.All(c => char.IsLetter(c))
             ).ToList();
 
@@ -91,7 +91,7 @@ namespace HangmanSystem
         {
             if (AllWords.Count > 0)
             {
-                CurrentWord = AllWords[rnd.Next(AllWords.Count - 1)];
+                CurrentWord = AllWords[rnd.Next(AllWords.Count)];
                 CurrentWord.Value = CurrentWord.Value.ToUpper();
                 AllWords.Remove(CurrentWord);
 
@@ -100,17 +100,17 @@ namespace HangmanSystem
                     WordLetters.Add(new Letter() { PrivateValue = c.ToString() });
                 }
                 AllLetters.ForEach(l => l.Reset(false));
-
             }
         }
+
         private async void RestartGame()
         {
             GamesPlayed += 1;
             AllLetters.Where(l => l.IsEnabled).ToList().ForEach(l =>
             {
                 l.IsEnabled = false;
-                l.BackColor = InitialLetterColor;
-                l.Color = DisabledColor;
+                l.BackColor = WhiteInitialLetterColor;
+                l.Color = GrayDisabledColor;
             });
             await Task.Delay(2500);
             Hint = "";
@@ -123,11 +123,22 @@ namespace HangmanSystem
         {
             letter = letter.ToUpper();
             Letter ltr = AllLetters.FirstOrDefault(l => l.PublicValue == letter);
-            ltr.BackColor = InitialLetterColor;
-            ltr.IsEnabled = false;
+            ltr.BackColor = WhiteInitialLetterColor;
+            if (!ltr.IsEnabled)
+            {
+                return;
+            }
+
+            List<string> ltsStrs = new() { "G", "F", "A", "C" };
+            if (!ltsStrs.Contains(letter))
+            {
+                ltr.IsEnabled = false;
+            }
+
+
             if (CurrentWord.Value.Contains(letter))
             {
-                ltr.Color = WinColor;
+                ltr.Color = GreenWinColor;
                 WordLetters.
                     Where(l => l.PrivateValue == letter).ToList().
                     ForEach(l => { l.PublicValue = l.PrivateValue; l.IsEnabled = false; }
@@ -135,9 +146,10 @@ namespace HangmanSystem
             }
             else
             {
-                ltr.Color = LossColor;
+                ltr.Color = RedLossColor;
                 WrongGuesses += 1;
             }
+
             if (DetectGameEnd())
             {
                 RestartGame();

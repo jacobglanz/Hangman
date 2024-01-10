@@ -10,7 +10,7 @@ namespace HangmanSystem
         string _publicValue = "";
         string _privateValue = "";
         bool _clickEnabled = true;
-        System.Drawing.Color _color = Game.InitialLetterColor;
+        System.Drawing.Color _color = Game.WhiteInitialLetterColor;
         System.Drawing.Color _backColor = Game.InitialBackColor;
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -85,14 +85,14 @@ namespace HangmanSystem
                 PublicValue = "";
                 PrivateValue = "";
             }
-            if (colors)
-            {
-                Color = Game.InitialLetterColor;
-                BackColor = Game.InitialBackColor;
-            }
             if (enabled)
             {
-                this.IsEnabled = true;
+                this.IsEnabled = enabled;
+            }
+            if (colors)
+            {
+                Color = Game.WhiteInitialLetterColor;
+                BackColor = Game.InitialBackColor;
             }
         }
 
