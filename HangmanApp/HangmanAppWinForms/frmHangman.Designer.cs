@@ -207,7 +207,7 @@
             // 
             btnY.Anchor = AnchorStyles.None;
             btnY.BackColor = Color.AliceBlue;
-            btnY.Enabled = false;
+            btnY.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             btnY.Location = new Point(227, 227);
             btnY.Name = "btnY";
             btnY.Size = new Size(50, 50);
@@ -219,7 +219,7 @@
             // 
             btnX.Anchor = AnchorStyles.None;
             btnX.BackColor = Color.AliceBlue;
-            btnX.Enabled = false;
+            btnX.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             btnX.Location = new Point(171, 227);
             btnX.Name = "btnX";
             btnX.Size = new Size(50, 50);
@@ -231,7 +231,7 @@
             // 
             btnW.Anchor = AnchorStyles.None;
             btnW.BackColor = Color.AliceBlue;
-            btnW.Enabled = false;
+            btnW.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             btnW.Location = new Point(115, 227);
             btnW.Name = "btnW";
             btnW.Size = new Size(50, 50);
@@ -243,7 +243,7 @@
             // 
             btnV.Anchor = AnchorStyles.None;
             btnV.BackColor = Color.AliceBlue;
-            btnV.Enabled = false;
+            btnV.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             btnV.Location = new Point(59, 227);
             btnV.Name = "btnV";
             btnV.Size = new Size(50, 50);
@@ -255,7 +255,7 @@
             // 
             btnU.Anchor = AnchorStyles.None;
             btnU.BackColor = Color.AliceBlue;
-            btnU.Enabled = false;
+            btnU.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             btnU.Location = new Point(3, 227);
             btnU.Name = "btnU";
             btnU.Size = new Size(50, 50);
@@ -266,7 +266,7 @@
             // 
             btnT.Anchor = AnchorStyles.None;
             btnT.BackColor = Color.AliceBlue;
-            btnT.Enabled = false;
+            btnT.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             btnT.Location = new Point(227, 171);
             btnT.Name = "btnT";
             btnT.Size = new Size(50, 50);
@@ -278,7 +278,7 @@
             // 
             btnS.Anchor = AnchorStyles.None;
             btnS.BackColor = Color.AliceBlue;
-            btnS.Enabled = false;
+            btnS.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             btnS.Location = new Point(171, 171);
             btnS.Name = "btnS";
             btnS.Size = new Size(50, 50);
@@ -290,7 +290,7 @@
             // 
             btnR.Anchor = AnchorStyles.None;
             btnR.BackColor = Color.AliceBlue;
-            btnR.Enabled = false;
+            btnR.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             btnR.Location = new Point(115, 171);
             btnR.Name = "btnR";
             btnR.Size = new Size(50, 50);
@@ -301,7 +301,7 @@
             // 
             btnQ.Anchor = AnchorStyles.None;
             btnQ.BackColor = Color.AliceBlue;
-            btnQ.Enabled = false;
+            btnQ.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             btnQ.Location = new Point(59, 171);
             btnQ.Name = "btnQ";
             btnQ.Size = new Size(50, 50);
@@ -313,7 +313,7 @@
             // 
             btnP.Anchor = AnchorStyles.None;
             btnP.BackColor = Color.AliceBlue;
-            btnP.Enabled = false;
+            btnP.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             btnP.Location = new Point(3, 171);
             btnP.Name = "btnP";
             btnP.Size = new Size(50, 50);
@@ -324,7 +324,7 @@
             // 
             btnO.Anchor = AnchorStyles.None;
             btnO.BackColor = Color.AliceBlue;
-            btnO.Enabled = false;
+            btnO.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             btnO.Location = new Point(227, 115);
             btnO.Name = "btnO";
             btnO.Size = new Size(50, 50);
@@ -336,7 +336,7 @@
             // 
             btnN.Anchor = AnchorStyles.None;
             btnN.BackColor = Color.AliceBlue;
-            btnN.Enabled = false;
+            btnN.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             btnN.Location = new Point(171, 115);
             btnN.Name = "btnN";
             btnN.Size = new Size(50, 50);
@@ -348,7 +348,7 @@
             // 
             btnM.Anchor = AnchorStyles.None;
             btnM.BackColor = Color.AliceBlue;
-            btnM.Enabled = false;
+            btnM.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             btnM.Location = new Point(115, 115);
             btnM.Name = "btnM";
             btnM.Size = new Size(50, 50);
@@ -360,7 +360,7 @@
             // 
             btnL.Anchor = AnchorStyles.None;
             btnL.BackColor = Color.AliceBlue;
-            btnL.Enabled = false;
+            btnL.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             btnL.Location = new Point(59, 115);
             btnL.Name = "btnL";
             btnL.Size = new Size(50, 50);
@@ -372,7 +372,7 @@
             // 
             btnK.Anchor = AnchorStyles.None;
             btnK.BackColor = Color.AliceBlue;
-            btnK.Enabled = false;
+            btnK.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             btnK.Location = new Point(3, 115);
             btnK.Name = "btnK";
             btnK.Size = new Size(50, 50);
@@ -383,7 +383,7 @@
             // 
             btnJ.Anchor = AnchorStyles.None;
             btnJ.BackColor = Color.AliceBlue;
-            btnJ.Enabled = false;
+            btnJ.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             btnJ.Location = new Point(227, 59);
             btnJ.Name = "btnJ";
             btnJ.Size = new Size(50, 50);
@@ -395,7 +395,7 @@
             // 
             btnI.Anchor = AnchorStyles.None;
             btnI.BackColor = Color.AliceBlue;
-            btnI.Enabled = false;
+            btnI.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             btnI.Location = new Point(171, 59);
             btnI.Name = "btnI";
             btnI.Size = new Size(50, 50);
@@ -407,7 +407,7 @@
             // 
             btnH.Anchor = AnchorStyles.None;
             btnH.BackColor = Color.AliceBlue;
-            btnH.Enabled = false;
+            btnH.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             btnH.Location = new Point(115, 59);
             btnH.Name = "btnH";
             btnH.Size = new Size(50, 50);
@@ -419,7 +419,7 @@
             // 
             btnG.Anchor = AnchorStyles.None;
             btnG.BackColor = Color.AliceBlue;
-            btnG.Enabled = false;
+            btnG.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             btnG.Location = new Point(59, 59);
             btnG.Name = "btnG";
             btnG.Size = new Size(50, 50);
@@ -431,7 +431,8 @@
             // 
             btnF.Anchor = AnchorStyles.None;
             btnF.BackColor = Color.AliceBlue;
-            btnF.Enabled = false;
+            btnF.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            btnF.ForeColor = Color.Green;
             btnF.Location = new Point(3, 59);
             btnF.Name = "btnF";
             btnF.Size = new Size(50, 50);
@@ -442,7 +443,7 @@
             // 
             btnE.Anchor = AnchorStyles.None;
             btnE.BackColor = Color.AliceBlue;
-            btnE.Enabled = false;
+            btnE.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             btnE.Location = new Point(227, 3);
             btnE.Name = "btnE";
             btnE.Size = new Size(50, 50);
@@ -454,7 +455,7 @@
             // 
             btnD.Anchor = AnchorStyles.None;
             btnD.BackColor = Color.AliceBlue;
-            btnD.Enabled = false;
+            btnD.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             btnD.Location = new Point(171, 3);
             btnD.Name = "btnD";
             btnD.Size = new Size(50, 50);
@@ -466,7 +467,7 @@
             // 
             btnC.Anchor = AnchorStyles.None;
             btnC.BackColor = Color.AliceBlue;
-            btnC.Enabled = false;
+            btnC.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             btnC.Location = new Point(115, 3);
             btnC.Name = "btnC";
             btnC.Size = new Size(50, 50);
@@ -478,7 +479,8 @@
             // 
             btnB.Anchor = AnchorStyles.None;
             btnB.BackColor = Color.AliceBlue;
-            btnB.Enabled = false;
+            btnB.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            btnB.ForeColor = Color.Green;
             btnB.Location = new Point(59, 3);
             btnB.Name = "btnB";
             btnB.Size = new Size(50, 50);
@@ -490,7 +492,7 @@
             // 
             btnA.Anchor = AnchorStyles.None;
             btnA.BackColor = Color.SkyBlue;
-            btnA.Enabled = false;
+            btnA.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             btnA.Location = new Point(3, 3);
             btnA.Name = "btnA";
             btnA.Size = new Size(50, 50);
@@ -501,7 +503,7 @@
             // 
             btnZ.Anchor = AnchorStyles.None;
             btnZ.BackColor = Color.AliceBlue;
-            btnZ.Enabled = false;
+            btnZ.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             btnZ.Location = new Point(115, 283);
             btnZ.Name = "btnZ";
             btnZ.Size = new Size(50, 50);

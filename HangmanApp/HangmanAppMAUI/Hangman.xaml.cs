@@ -28,7 +28,7 @@ public partial class Hangman : ContentPage
                 FontAttributes = FontAttributes.Bold,
                 Padding = 0,
             };
-            lbl.SetBinding(Label.TextProperty, nameof(Letter.PublicValue));
+            lbl.SetBinding(Label.TextProperty, nameof(Letter.Value));
             g.Add(lbl);
             BoxView bv = new()
             {

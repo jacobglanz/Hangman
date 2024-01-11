@@ -1,7 +1,4 @@
-﻿using System.Data;
-using System.Windows.Forms;
-using gnuciDictionary;
-using HangmanSystem;
+﻿using HangmanSystem;
 
 namespace HangmanApp
 {
@@ -19,10 +16,9 @@ namespace HangmanApp
                 Letter ltr = game.AllLetters[lstAllButtons.IndexOf(b)];
                 BindingSource binding = new() { DataSource = ltr };
 
-                b.DataBindings.Add("Text", binding, "PublicValue");
-                b.DataBindings.Add("BackColor", binding, "BackColor");
-                b.DataBindings.Add("ForeColor", binding, "Color");
-                b.DataBindings.Add("Enabled", binding, "IsEnabled");
+                b.DataBindings.Add("Text", binding, nameof(Letter.Value));
+                b.DataBindings.Add("BackColor", binding, nameof(Letter.BackColor));
+                b.DataBindings.Add("ForeColor", binding, nameof(Letter.Color));
                 b.Click += BtnLetter_Click;
             });
 
@@ -40,7 +36,7 @@ namespace HangmanApp
             game.WordLetters.ForEach(l =>
             {
                 Label lbl = GetNewLabel();
-                lbl.DataBindings.Add("Text", l, "PublicValue");
+                lbl.DataBindings.Add("Text", l, nameof(Letter.Value));
                 tblWord.Controls.Add(lbl);
             });
         }
@@ -67,6 +63,7 @@ namespace HangmanApp
         private void GuessLetter(Button btn)
         {
             game.GuessLetter(btn.Text);
+            btn.Tag = false;
         }
 
         private void ReveleHint()
@@ -76,9 +73,9 @@ namespace HangmanApp
 
         private void BtnLetter_Click(object? sender, EventArgs e)
         {
-            if (sender is Button)
+            if (sender is Button b && b.Tag == null)
             {
-                GuessLetter((Button)sender);
+                GuessLetter(b);
             }
         }
 

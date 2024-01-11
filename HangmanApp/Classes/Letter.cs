@@ -1,6 +1,4 @@
-﻿using Microsoft.Maui.Graphics;
-using System.ComponentModel;
-using System.Reflection;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace HangmanSystem
@@ -9,12 +7,12 @@ namespace HangmanSystem
     {
         string _publicValue = "";
         string _privateValue = "";
-        bool _clickEnabled = true;
+        bool _isEnabled = true;
         System.Drawing.Color _color = Game.WhiteInitialLetterColor;
         System.Drawing.Color _backColor = Game.InitialBackColor;
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public string PublicValue
+        public string Value
         {
             get => _publicValue;
             internal set
@@ -23,21 +21,13 @@ namespace HangmanSystem
                 InvokePropertyChanged();
             }
         }
-        internal string PrivateValue
-        {
-            get => _privateValue;
-            set
-            {
-                _privateValue = value;
-                InvokePropertyChanged();
-            }
-        }
+
         public bool IsEnabled
         {
-            get => _clickEnabled;
+            get => _isEnabled;
             internal set
             {
-                _clickEnabled = value;
+                _isEnabled = value;
                 InvokePropertyChanged();
             }
         }
@@ -82,8 +72,7 @@ namespace HangmanSystem
         {
             if (values)
             {
-                PublicValue = "";
-                PrivateValue = "";
+                Value = "";
             }
             if (enabled)
             {

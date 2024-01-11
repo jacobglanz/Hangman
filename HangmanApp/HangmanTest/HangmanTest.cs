@@ -21,14 +21,14 @@ namespace HangmanTest
         {
             Game game = new();
             string s = Convert.ToChar(rnd.Next(65, 91)).ToString();
-            Letter ltr = game.AllLetters.First(l => l.PublicValue == s);
-            TestContext.WriteLine($"Letter {ltr.PublicValue} should get disabled after it's geussed");
-            TestContext.WriteLine($"Runing GuessLetter({ltr.PublicValue})");
+            Letter ltr = game.AllLetters.First(l => l.Value == s);
+            TestContext.WriteLine($"Letter {ltr.Value} should get disabled after it's geussed");
+            TestContext.WriteLine($"Runing GuessLetter({ltr.Value})");
 
             game.GuessLetter(s);
 
-            Assert.IsTrue(!ltr.IsEnabled, $"Letter {ltr.PublicValue} was not disabled");
-            TestContext.WriteLine($"Letter {ltr.PublicValue} was disabled");
+            Assert.IsTrue(!ltr.IsEnabled, $"Letter {ltr.Value} was not disabled");
+            TestContext.WriteLine($"Letter {ltr.Value} was disabled");
         }
 
         [Test]
@@ -77,7 +77,7 @@ namespace HangmanTest
             for (char c = 'A'; c <= 'Z'; c++)
             {
                 Letter ltr = game.AllLetters[letterIndex];
-                Assert.IsTrue(c.ToString() == ltr.PublicValue, $"Letter should be {c} but is {ltr.PublicValue}");
+                Assert.IsTrue(c.ToString() == ltr.Value, $"Letter should be {c} but is {ltr.Value}");
                 letterIndex++;
             }
             TestContext.WriteLine("AllLetters Sorted Correctly");
@@ -102,7 +102,7 @@ namespace HangmanTest
             Game game = new();
             TestContext.WriteLine("All WordLetters PublicValue should be empty");
 
-            bool empty = game.WordLetters.TrueForAll(l => string.IsNullOrEmpty(l.PublicValue));
+            bool empty = game.WordLetters.TrueForAll(l => string.IsNullOrEmpty(l.Value));
 
             Assert.IsTrue(empty, "Not all WordLetters PublicValue are empty");
             TestContext.WriteLine("All WordLetters PublicValue are empty");

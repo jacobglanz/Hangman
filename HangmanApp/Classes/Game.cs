@@ -15,12 +15,6 @@ namespace HangmanSystem
         string _hint = "";
         string _description = "";
 
-        public static System.Drawing.Color InitialBackColor = System.Drawing.Color.FromArgb(52, 152, 219);
-        public static System.Drawing.Color WhiteInitialLetterColor = System.Drawing.Color.White;
-        public static System.Drawing.Color GreenWinColor = System.Drawing.Color.FromArgb(46, 204, 113);
-        public static System.Drawing.Color RedLossColor = System.Drawing.Color.FromArgb(192, 57, 43);
-        public static System.Drawing.Color GrayDisabledColor = System.Drawing.Color.Gray;
-
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public Game()
@@ -35,11 +29,17 @@ namespace HangmanSystem
 
             for (char c = 'A'; c <= 'Z'; c++)
             {
-                AllLetters.Add(new Letter() { PublicValue = c.ToString() });
+                AllLetters.Add(new Letter() { Value = c.ToString() });
             }
 
             StartGame();
         }
+
+        public static System.Drawing.Color InitialBackColor = System.Drawing.Color.FromArgb(52, 152, 219);
+        public static System.Drawing.Color WhiteInitialLetterColor = System.Drawing.Color.White;
+        public static System.Drawing.Color GreenWinColor = System.Drawing.Color.FromArgb(46, 204, 113);
+        public static System.Drawing.Color RedLossColor = System.Drawing.Color.FromArgb(192, 57, 43);
+        public static System.Drawing.Color GrayDisabledColor = System.Drawing.Color.Gray;
 
         internal Word CurrentWord { get; private set; }
 
@@ -102,7 +102,7 @@ namespace HangmanSystem
 
                 foreach (char c in CurrentWord.Value)
                 {
-                    WordLetters.Add(new Letter() { PrivateValue = c.ToString() });
+                    WordLetters.Add(new Letter() );
                 }
                 AllLetters.ForEach(l => l.Reset(false));
             }
@@ -111,8 +111,8 @@ namespace HangmanSystem
         public void GuessLetter(string letter)
         {
             letter = letter.ToUpper();
-            Letter ltr = AllLetters.FirstOrDefault(l => l.PublicValue == letter);
-            ltr.BackColor = WhiteInitialLetterColor;
+           Letter ltr = AllLetters.FirstOrDefault(l => l.Value == letter);
+           ltr.BackColor = WhiteInitialLetterColor;
             if (!ltr.IsEnabled)
             {
                 return;
@@ -121,10 +121,17 @@ namespace HangmanSystem
             if (CurrentWord.Value.Contains(letter))
             {
                 ltr.Color = GreenWinColor;
-                WordLetters.
-                    Where(l => l.PrivateValue == letter).ToList().
-                    ForEach(l => { l.PublicValue = l.PrivateValue; l.IsEnabled = false; }
-                );
+                int i = 0;
+                CurrentWord.Value.ToList().ForEach(l =>
+                {
+                    if (l.ToString() == letter)
+                    {
+                        Letter wl = WordLetters[i];
+                        wl.Value = l.ToString();
+                        wl.IsEnabled = false;
+                    }
+                    i++;
+                });
             }
             else
             {
@@ -138,16 +145,24 @@ namespace HangmanSystem
             }
         }
 
-        private bool DetectGameEnd()
+        bool DetectGameEnd()
         {
             bool endThisGame = false;
 
             if (WrongGuesses >= 7)
             {
-                WordLetters.ForEach(l => { l.PublicValue = l.PrivateValue; l.IsEnabled = false; });
+                int i = 0;
+                CurrentWord.Value.ToList().ForEach(l =>
+                {
+                    Letter wl = WordLetters[i];
+                    wl.Value = l.ToString();
+                    wl.IsEnabled = false;
+                    i++;
+                });
+
                 endThisGame = true;
             }
-            else if (WordLetters.TrueForAll(l => l.PublicValue != ""))
+            else if (WordLetters.TrueForAll(l => l.Value != ""))
             {
                 GamesWon += 1;
                 endThisGame = true;
