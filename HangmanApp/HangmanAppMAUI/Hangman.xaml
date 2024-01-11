@@ -17,7 +17,7 @@
                 BackgroundColor="Orange" TextColor="White" WidthRequest="100" 
                 HeightRequest="35" Padding="5"/>
 
-        <Label Text="{Binding Hint}" Grid.Row="1"/>
+        <Label x:Name="HintLbl" Text="{Binding Hint}" Grid.Row="1"/>
 
         <Label x:Name="StatusLbl" Text="{Binding Description}" Grid.Column="1"/>
 

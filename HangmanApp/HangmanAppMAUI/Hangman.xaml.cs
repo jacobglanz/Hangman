@@ -14,6 +14,7 @@ public partial class Hangman : ContentPage
 
     private void SetWordLetters()
     {
+        WordLetterLabels.Clear();
         foreach (Letter l in game.WordLetters)
         {
             var g = new Grid()
@@ -42,26 +43,32 @@ public partial class Hangman : ContentPage
         }
     }
 
-    private void Game_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    private void ChangeImage()
     {
-        if (e.PropertyName == nameof(game.WrongGuesses))
-        {
-            if (game.WrongGuesses == 0)
-            {
-                WordLetterLabels.Clear();
-                SetWordLetters();
-                Img.Source = "s0p.gif";
-            }
-            else
-            {
-                Img.Source = $"s{game.WrongGuesses}p.png";
-            }
-        }
+        Img.Source = game.WrongGuesses == 0 ? "s0p.gif" : $"s{game.WrongGuesses}p.png";
     }
 
     private void GuessLetter(string letter)
     {
         game.GuessLetter(letter);
+    }
+
+    private void ReveleHint()
+    {
+        game.ReveleHint();
+    }
+
+    private void Game_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(game.WrongGuesses))
+        {
+            ChangeImage();
+
+            if (game.WrongGuesses == 0)
+            {
+                SetWordLetters();
+            }
+        }
     }
 
     private void LetterBtn_Clicked(object sender, EventArgs e)
@@ -74,6 +81,10 @@ public partial class Hangman : ContentPage
 
     private void HintBtn_Clicked(object sender, EventArgs e)
     {
-        game.ReveleHint();
+        if (string.IsNullOrEmpty(HintLbl.Text))
+        {
+            ReveleHint();
+        }
     }
+
 }
