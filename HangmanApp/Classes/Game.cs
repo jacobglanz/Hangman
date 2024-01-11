@@ -42,8 +42,11 @@ namespace HangmanSystem
         }
 
         internal Word CurrentWord { get; private set; }
+
         public List<Letter> WordLetters { get; internal set; } = new();
+
         public List<Letter> AllLetters { get; private set; } = new();
+
         public string Hint
         {
             get => _hint;
@@ -53,6 +56,7 @@ namespace HangmanSystem
                 InvokePropertyChanged();
             }
         }
+
         public int WrongGuesses
         {
             get => _wrongGuesses;
@@ -72,6 +76,7 @@ namespace HangmanSystem
                 InvokePropertyChanged("Description");
             }
         }
+
         public int GamesWon
         {
             get => _gamesWon;
@@ -101,22 +106,6 @@ namespace HangmanSystem
                 }
                 AllLetters.ForEach(l => l.Reset(false));
             }
-        }
-
-        private async void RestartGame()
-        {
-            GamesPlayed += 1;
-            AllLetters.Where(l => l.IsEnabled).ToList().ForEach(l =>
-            {
-                l.IsEnabled = false;
-                l.BackColor = WhiteInitialLetterColor;
-                l.Color = GrayDisabledColor;
-            });
-            await Task.Delay(2500);
-            Hint = "";
-            WordLetters.Clear();
-            StartGame();
-            WrongGuesses = 0;
         }
 
         public void GuessLetter(string letter)
@@ -165,6 +154,22 @@ namespace HangmanSystem
             }
 
             return endThisGame;
+        }
+
+        private async void RestartGame()
+        {
+            GamesPlayed += 1;
+            AllLetters.Where(l => l.IsEnabled).ToList().ForEach(l =>
+            {
+                l.IsEnabled = false;
+                l.BackColor = WhiteInitialLetterColor;
+                l.Color = GrayDisabledColor;
+            });
+            await Task.Delay(2500);
+            Hint = "";
+            WordLetters.Clear();
+            StartGame();
+            WrongGuesses = 0;
         }
 
         public void ReveleHint()
