@@ -24,13 +24,14 @@ namespace HangmanApp
 
             lblStatus.DataBindings.Add("Text", game, nameof(game.Description));
             lblHint.DataBindings.Add("Text", game, nameof(game.Hint));
-            SetWordLetters();
+            ResetGameBoard();
             btnHint.Click += BtnHint_Click;
             game.PropertyChanged += Game_PropertyChanged;
         }
 
-        private void SetWordLetters()
+        private void ResetGameBoard()
         {
+            lstAllButtons.ForEach(b => b.Tag = null);
             tblWord.Controls.Clear();
             tblWord.ColumnCount = game.WordLetters.Count;
             game.WordLetters.ForEach(l =>
@@ -88,7 +89,7 @@ namespace HangmanApp
         {
             if (e.PropertyName == nameof(game.WrongGuesses) && game.WrongGuesses == 0)
             {
-                SetWordLetters();
+                ResetGameBoard();
             }
         }
     }
