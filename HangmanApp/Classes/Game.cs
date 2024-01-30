@@ -13,7 +13,6 @@ namespace HangmanSystem
         int _gamesWon = 0;
         int _gamesPlayed = 0;
         string _hint = "";
-        string _description = "";
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -64,6 +63,7 @@ namespace HangmanSystem
             {
                 _wrongGuesses = value;
                 InvokePropertyChanged();
+                InvokePropertyChanged("Description");
             }
         }
 
@@ -89,7 +89,7 @@ namespace HangmanSystem
 
         public string Description
         {
-            get => $"{GamesWon} / {GamesPlayed} words";
+            get => $"{7 - WrongGuesses} tries left\n{GamesWon}/{GamesPlayed} words";
         }
 
         void StartGame()

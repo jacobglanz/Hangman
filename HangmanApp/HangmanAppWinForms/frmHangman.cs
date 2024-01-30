@@ -10,7 +10,10 @@ namespace HangmanApp
         {
             InitializeComponent();
 
-            lstAllButtons = new() { btnA, btnB, btnC, btnD, btnE, btnF, btnG, btnH, btnI, btnJ, btnK, btnL, btnM, btnN, btnO, btnP, btnQ, btnR, btnS, btnT, btnU, btnV, btnW, btnX, btnY, btnZ };
+            lstAllButtons = new() { btnA, btnB, btnC, btnD, btnE, btnF, btnG, btnH,
+                btnI, btnJ, btnK, btnL, btnM, btnN, btnO, btnP, btnQ, btnR, btnS,
+                btnT, btnU, btnV, btnW, btnX, btnY, btnZ };
+
             lstAllButtons.ForEach(b =>
             {
                 Letter ltr = game.AllLetters[lstAllButtons.IndexOf(b)];
