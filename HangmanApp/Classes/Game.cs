@@ -6,13 +6,13 @@ namespace HangmanSystem
 {
     public class Game : INotifyPropertyChanged
     {
-        Random rnd = new();
+        private static Random rnd = new();
 
-        List<Word> AllWords;
-        int _wrongGuesses = 0;
-        int _gamesWon = 0;
-        int _gamesPlayed = 0;
-        string _hint = "";
+        private static List<Word> AllWords = new();
+        private int _wrongGuesses = 0;
+        private string _hint = "";
+        private static int _gamesWon = 0;
+        private static int _gamesPlayed = 0;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -39,6 +39,25 @@ namespace HangmanSystem
         public static System.Drawing.Color GreenWinColor = System.Drawing.Color.FromArgb(46, 204, 113);
         public static System.Drawing.Color RedLossColor = System.Drawing.Color.FromArgb(192, 57, 43);
         public static System.Drawing.Color GrayDisabledColor = System.Drawing.Color.Gray;
+
+        public static int GamesPlayed
+        {
+            get => _gamesPlayed;
+            internal set
+            {
+                _gamesPlayed = value;
+            }
+        }
+
+        public static int GamesWon
+        {
+            get => _gamesWon;
+            internal set
+            {
+                _gamesWon = value;
+            }
+        }
+
 
         internal Word CurrentWord { get; private set; }
 
@@ -67,52 +86,34 @@ namespace HangmanSystem
             }
         }
 
-        public int GamesPlayed
-        {
-            get => _gamesPlayed;
-            internal set
-            {
-                _gamesPlayed = value;
-                InvokePropertyChanged("Description");
-            }
-        }
-
-        public int GamesWon
-        {
-            get => _gamesWon;
-            internal set
-            {
-                _gamesWon = value;
-                InvokePropertyChanged("Description");
-            }
-        }
-
         public string Description
         {
             get => $"{7 - WrongGuesses} tries left\n{GamesWon}/{GamesPlayed} words";
         }
 
-        void StartGame()
+        private void StartGame()
         {
             if (AllWords.Count > 0)
             {
                 CurrentWord = AllWords[rnd.Next(AllWords.Count)];
                 CurrentWord.Value = CurrentWord.Value.ToUpper();
                 AllWords.Remove(CurrentWord);
-
                 foreach (char c in CurrentWord.Value)
                 {
-                    WordLetters.Add(new Letter() );
+                    WordLetters.Add(new Letter());
                 }
-                AllLetters.ForEach(l => l.Reset(false));
+            }
+            else
+            {
+                throw new Exception("I don't have any other words left for you 😢");
             }
         }
 
         public void GuessLetter(string letter)
         {
             letter = letter.ToUpper();
-           Letter ltr = AllLetters.FirstOrDefault(l => l.Value == letter);
-           ltr.BackColor = WhiteInitialLetterColor;
+            Letter ltr = AllLetters.FirstOrDefault(l => l.Value == letter);
+            ltr.BackColor = WhiteInitialLetterColor;
             if (!ltr.IsEnabled)
             {
                 return;
