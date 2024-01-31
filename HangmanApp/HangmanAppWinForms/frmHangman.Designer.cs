@@ -30,9 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmHangman));
             tblMain = new TableLayoutPanel();
-            lblStatus = new Label();
-            tableLayoutPanel1 = new TableLayoutPanel();
             btnHint = new Button();
+            lblStatus = new Label();
             lblHint = new Label();
             tblWord = new TableLayoutPanel();
             tblAllLetters = new TableLayoutPanel();
@@ -63,7 +62,6 @@
             btnA = new Button();
             btnZ = new Button();
             tblMain.SuspendLayout();
-            tableLayoutPanel1.SuspendLayout();
             tblAllLetters.SuspendLayout();
             SuspendLayout();
             // 
@@ -71,8 +69,8 @@
             // 
             tblMain.ColumnCount = 1;
             tblMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tblMain.Controls.Add(btnHint, 0, 0);
             tblMain.Controls.Add(lblStatus, 0, 1);
-            tblMain.Controls.Add(tableLayoutPanel1, 0, 0);
             tblMain.Controls.Add(lblHint, 0, 3);
             tblMain.Controls.Add(tblWord, 0, 2);
             tblMain.Controls.Add(tblAllLetters, 0, 4);
@@ -89,6 +87,19 @@
             tblMain.Size = new Size(905, 645);
             tblMain.TabIndex = 0;
             // 
+            // btnHint
+            // 
+            btnHint.Anchor = AnchorStyles.None;
+            btnHint.BackColor = Color.AliceBlue;
+            btnHint.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnHint.Location = new Point(396, 11);
+            btnHint.Name = "btnHint";
+            btnHint.Size = new Size(112, 38);
+            btnHint.TabIndex = 1;
+            btnHint.Tag = "";
+            btnHint.Text = "Hint";
+            btnHint.UseVisualStyleBackColor = false;
+            // 
             // lblStatus
             // 
             lblStatus.Anchor = AnchorStyles.None;
@@ -100,33 +111,6 @@
             lblStatus.TabIndex = 2;
             lblStatus.Text = "Status";
             lblStatus.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // tableLayoutPanel1
-            // 
-            tableLayoutPanel1.Anchor = AnchorStyles.None;
-            tableLayoutPanel1.ColumnCount = 1;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Controls.Add(btnHint, 0, 0);
-            tableLayoutPanel1.Location = new Point(374, 8);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 1;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.Size = new Size(157, 44);
-            tableLayoutPanel1.TabIndex = 4;
-            // 
-            // btnHint
-            // 
-            btnHint.Anchor = AnchorStyles.None;
-            btnHint.BackColor = Color.AliceBlue;
-            btnHint.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnHint.Location = new Point(22, 3);
-            btnHint.Name = "btnHint";
-            btnHint.Size = new Size(112, 38);
-            btnHint.TabIndex = 1;
-            btnHint.Tag = "";
-            btnHint.Text = "Hint";
-            btnHint.UseVisualStyleBackColor = false;
             // 
             // lblHint
             // 
@@ -260,6 +244,7 @@
             btnU.Name = "btnU";
             btnU.Size = new Size(50, 50);
             btnU.TabIndex = 20;
+            btnU.Text = "U";
             btnU.UseVisualStyleBackColor = false;
             // 
             // btnT
@@ -295,6 +280,7 @@
             btnR.Name = "btnR";
             btnR.Size = new Size(50, 50);
             btnR.TabIndex = 17;
+            btnR.Text = "R";
             btnR.UseVisualStyleBackColor = false;
             // 
             // btnQ
@@ -318,6 +304,7 @@
             btnP.Name = "btnP";
             btnP.Size = new Size(50, 50);
             btnP.TabIndex = 15;
+            btnP.Text = "P";
             btnP.UseVisualStyleBackColor = false;
             // 
             // btnO
@@ -377,6 +364,7 @@
             btnK.Name = "btnK";
             btnK.Size = new Size(50, 50);
             btnK.TabIndex = 10;
+            btnK.Text = "K";
             btnK.UseVisualStyleBackColor = false;
             // 
             // btnJ
@@ -437,6 +425,7 @@
             btnF.Name = "btnF";
             btnF.Size = new Size(50, 50);
             btnF.TabIndex = 5;
+            btnF.Text = "F";
             btnF.UseVisualStyleBackColor = false;
             // 
             // btnE
@@ -497,6 +486,7 @@
             btnA.Name = "btnA";
             btnA.Size = new Size(50, 50);
             btnA.TabIndex = 0;
+            btnA.Text = "A";
             btnA.UseVisualStyleBackColor = false;
             // 
             // btnZ
@@ -508,6 +498,7 @@
             btnZ.Name = "btnZ";
             btnZ.Size = new Size(50, 50);
             btnZ.TabIndex = 25;
+            btnZ.Text = "Z";
             btnZ.UseVisualStyleBackColor = false;
             // 
             // frmHangman
@@ -522,7 +513,6 @@
             Text = "Hangman";
             tblMain.ResumeLayout(false);
             tblMain.PerformLayout();
-            tableLayoutPanel1.ResumeLayout(false);
             tblAllLetters.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -560,7 +550,6 @@
         private Button btnZ;
         private TableLayoutPanel tblWord;
         private Label lblHint;
-        private TableLayoutPanel tableLayoutPanel1;
         private Button btnHint;
     }
 }

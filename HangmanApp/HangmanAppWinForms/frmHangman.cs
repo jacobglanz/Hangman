@@ -1,4 +1,5 @@
 ﻿using HangmanSystem;
+using System.Runtime.CompilerServices;
 
 namespace HangmanApp
 {
@@ -6,35 +7,50 @@ namespace HangmanApp
     {
         Game game = new();
         List<Button> lstAllButtons;
+
         public frmHangman()
         {
             InitializeComponent();
-
-            lstAllButtons = new() { btnA, btnB, btnC, btnD, btnE, btnF, btnG, btnH,
-                btnI, btnJ, btnK, btnL, btnM, btnN, btnO, btnP, btnQ, btnR, btnS,
-                btnT, btnU, btnV, btnW, btnX, btnY, btnZ };
-
-            lstAllButtons.ForEach(b =>
-            {
-                Letter ltr = game.AllLetters[lstAllButtons.IndexOf(b)];
-                BindingSource binding = new() { DataSource = ltr };
-
-                b.DataBindings.Add("Text", binding, nameof(Letter.Value));
-                b.DataBindings.Add("BackColor", binding, nameof(Letter.BackColor));
-                b.DataBindings.Add("ForeColor", binding, nameof(Letter.Color));
-                b.Click += BtnLetter_Click;
-            });
-
-            lblStatus.DataBindings.Add("Text", game, nameof(game.Description));
-            lblHint.DataBindings.Add("Text", game, nameof(game.Hint));
-            ResetGameBoard();
-            btnHint.Click += BtnHint_Click;
-            game.PropertyChanged += Game_PropertyChanged;
+            SetUpForm();
         }
 
-        private void ResetGameBoard()
+        private void SetUpForm()
         {
-            lstAllButtons.ForEach(b => b.Tag = null);
+            lstAllButtons = new() { btnA, btnB, btnC, btnD, btnE, btnF, btnG, btnH, btnI, btnJ, btnK, btnL, btnM, btnN, btnO, btnP, btnQ, btnR, btnS, btnT, btnU, btnV, btnW, btnX, btnY, btnZ };
+            lstAllButtons.ForEach(b => { b.Click += BtnLetter_Click; });
+            btnHint.Click += BtnHint_Click;
+            StartNewGame();
+        }
+
+        private void StartNewGame()
+        {
+            game = new Game();
+            game.PropertyChanged += Game_PropertyChanged;
+            SetControlBindings();
+            SetWord();
+        }
+
+        private void SetControlBindings()
+        {
+            lblStatus.DataBindings.Clear();
+            lblHint.DataBindings.Clear();
+            lblStatus.DataBindings.Add("Text", game, nameof(Game.Description));
+            lblHint.DataBindings.Add("Text", game, nameof(Game.Hint));
+
+            //A-Z Buttons Bindings
+            lstAllButtons.ForEach(b =>
+            {
+                b.DataBindings.Clear();
+                b.Tag = null;
+
+                Letter ltr = game.AllLetters[lstAllButtons.IndexOf(b)];
+                b.DataBindings.Add("BackColor", ltr, nameof(Letter.BackColor));
+                b.DataBindings.Add("ForeColor", ltr, nameof(Letter.Color));
+            });
+        }
+
+        private void SetWord()
+        {
             tblWord.Controls.Clear();
             tblWord.ColumnCount = game.WordLetters.Count;
             game.WordLetters.ForEach(l =>
@@ -90,9 +106,9 @@ namespace HangmanApp
 
         private void Game_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(game.WrongGuesses) && game.WrongGuesses == 0)
+            if (e.PropertyName == nameof(Game.WrongGuesses) && game.WrongGuesses == 0)
             {
-                ResetGameBoard();
+                StartNewGame();
             }
         }
     }
