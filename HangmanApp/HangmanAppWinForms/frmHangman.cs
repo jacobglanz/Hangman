@@ -25,7 +25,7 @@ namespace HangmanApp
         private void StartNewGame()
         {
             game = new Game();
-            game.PropertyChanged += Game_PropertyChanged;
+            game.GameEnded += Game_GameEnded;
             SetControlBindings();
             SetWord();
         }
@@ -43,7 +43,7 @@ namespace HangmanApp
                 b.DataBindings.Clear();
                 b.Tag = null;
 
-                Letter ltr = game.AllLetters[lstAllButtons.IndexOf(b)];
+                Letter ltr = Game.AllLetters[lstAllButtons.IndexOf(b)];
                 b.DataBindings.Add("BackColor", ltr, nameof(Letter.BackColor));
                 b.DataBindings.Add("ForeColor", ltr, nameof(Letter.Color));
             });
@@ -104,12 +104,9 @@ namespace HangmanApp
             ReveleHint();
         }
 
-        private void Game_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void Game_GameEnded(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(Game.WrongGuesses) && game.WrongGuesses == 0)
-            {
-                StartNewGame();
-            }
+            StartNewGame();
         }
     }
 }

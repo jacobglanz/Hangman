@@ -8,8 +8,9 @@ public partial class Hangman : ContentPage
     {
         InitializeComponent();
         BindingContext = game;
-        SetWordLetters();
         game.PropertyChanged += Game_PropertyChanged;
+
+        SetWordLetters();
     }
 
     private void SetWordLetters()

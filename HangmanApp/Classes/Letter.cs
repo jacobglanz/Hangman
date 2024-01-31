@@ -8,8 +8,8 @@ namespace HangmanSystem
         string _publicValue = "";
         string _privateValue = "";
         bool _isEnabled = true;
-        System.Drawing.Color _color = Game.WhiteInitialLetterColor;
-        System.Drawing.Color _backColor = Game.InitialBackColor;
+        System.Drawing.Color _color = Game.ColorWhiteInitialLetter;
+        System.Drawing.Color _backColor = Game.ColorInitialBack;
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public string Value
@@ -80,8 +80,8 @@ namespace HangmanSystem
             }
             if (colors)
             {
-                Color = Game.WhiteInitialLetterColor;
-                BackColor = Game.InitialBackColor;
+                Color = Game.ColorWhiteInitialLetter;
+                BackColor = Game.ColorInitialBack;
             }
         }
 
