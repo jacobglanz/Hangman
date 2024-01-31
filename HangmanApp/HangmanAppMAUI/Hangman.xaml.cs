@@ -1,15 +1,37 @@
 namespace HangmanAppMAUI;
 using HangmanSystem;
+using Microsoft.Maui.Graphics.Text;
 
 public partial class Hangman : ContentPage
 {
-    Game game = new();
+    Game game;
     public Hangman()
     {
         InitializeComponent();
+        SetUpPage();
+        StartNewGame();
+    }
+
+    private void SetUpPage()
+    {
+        foreach(Button b in AllLetters.Children)
+        {
+            Letter ltr = Game.AllLetters[AllLetters.IndexOf(b)];
+            b.Clicked += LetterBtn_Clicked;
+            b.BindingContext = ltr;
+            b.SetBinding(BackgroundColorProperty, nameof(Letter.BackColorMaui));
+            b.SetBinding(Button.TextColorProperty, nameof(Letter.ColorMaui));
+            b.SetBinding(Button.BorderColorProperty, nameof(Letter.ColorMaui));
+            b.SetBinding(IsEnabledProperty, nameof(Letter.IsEnabled));
+        }
+    }
+
+    private void StartNewGame()
+    {
+        game = new Game();
         BindingContext = game;
         game.PropertyChanged += Game_PropertyChanged;
-
+        game.GameEnded += Game_GameEnded;
         SetWordLetters();
     }
 
@@ -64,12 +86,12 @@ public partial class Hangman : ContentPage
         if (e.PropertyName == nameof(game.WrongGuesses))
         {
             ChangeImage();
-
-            if (game.WrongGuesses == 0)
-            {
-                SetWordLetters();
-            }
         }
+    }
+
+    private void Game_GameEnded(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        StartNewGame();
     }
 
     private void LetterBtn_Clicked(object sender, EventArgs e)

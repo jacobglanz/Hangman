@@ -1,4 +1,5 @@
 ﻿using gnuciDictionary;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -9,17 +10,17 @@ namespace HangmanSystem
         private static Random rnd = new();
 
         private static List<Word> AllWords = new();
-        private int _wrongGuesses = 0;
-        private string _hint = "";
         private static int _gamesWon = 0;
         private static int _gamesPlayed = -1;
+        private int _wrongGuesses = 0;
+        private string _hint = "";
 
         public event PropertyChangedEventHandler? PropertyChanged;
         public event PropertyChangedEventHandler? GameEnded;
 
         public Game()
         {
-            GamesPlayed += 1;
+            GamesPlayed++;
             AllWords = EnglishDictionary.GetAllWords().Where(
                 w => w.Value.Length >= 7
                 && w.Value.Length <= 11
@@ -27,11 +28,6 @@ namespace HangmanSystem
                 && !string.IsNullOrEmpty(w.Definition)
                 && w.Value.All(c => char.IsLetter(c))
             ).ToList();
-
-            for (char c = 'A'; c <= 'Z'; c++)
-            {
-                AllLetters.Add(new Letter() { Value = c.ToString() });
-            }
 
             StartGame();
         }
@@ -41,7 +37,6 @@ namespace HangmanSystem
         public static System.Drawing.Color ColorGreenWin = System.Drawing.Color.FromArgb(46, 204, 113);
         public static System.Drawing.Color ColorRedLoss = System.Drawing.Color.FromArgb(192, 57, 43);
         public static System.Drawing.Color ColorGrayDisabled = System.Drawing.Color.Gray;
-
         public static int GamesPlayed
         {
             get => _gamesPlayed;
@@ -50,7 +45,6 @@ namespace HangmanSystem
                 _gamesPlayed = value;
             }
         }
-
         public static int GamesWon
         {
             get => _gamesWon;
@@ -59,14 +53,20 @@ namespace HangmanSystem
                 _gamesWon = value;
             }
         }
+        public static List<Letter> AllLetters { get; private set; } = SetAllLetters();
 
+        private static List<Letter> SetAllLetters()
+        {
+            List<Letter> letters = new();
+            for (char c = 'A'; c <= 'Z'; c++)
+            {
+                letters.Add(new Letter() { Value = c.ToString() });
+            }
+            return letters;
+        }
 
         internal Word CurrentWord { get; private set; }
-
         public List<Letter> WordLetters { get; internal set; } = new();
-
-        public static List<Letter> AllLetters { get; private set; } = new();
-
         public string Hint
         {
             get => _hint;
