@@ -12,46 +12,51 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="300,Auto" RowSpacing="25" ColumnSpacing="100">
+    <Grid RowDefinitions="100,Auto,Auto,Auto" ColumnDefinitions="300,Auto" RowSpacing="25" ColumnSpacing="100">
+        <HorizontalStackLayout x:Name="GameRbs" Grid.ColumnSpan="2">
+            <RadioButton Content="Room 1" x:Name="GameRoom1Rb" IsChecked="True" CheckedChanged="GameRoomRb_CheckedChanged"/>
+            <RadioButton Content="Room 2" x:Name="GameRoom2Rb" IsChecked="false" CheckedChanged="GameRoomRb_CheckedChanged"/>
+            <RadioButton Content="Room 3" x:Name="GameRoom3Rb" IsChecked="false" CheckedChanged="GameRoomRb_CheckedChanged"/>
+        </HorizontalStackLayout>
         <Button x:Name="HintBtn" Clicked="HintBtn_Clicked" Text="Hint" FontSize="22" FontAttributes="None" CornerRadius="20" 
                 BackgroundColor="Orange" TextColor="White" WidthRequest="100" 
-                HeightRequest="35" Padding="5"/>
+                HeightRequest="35" Padding="5" Grid.Row="1"/>
 
-        <Label x:Name="HintLbl" Text="{Binding Hint}" Grid.Row="1"/>
+        <Label x:Name="HintLbl" Text="{Binding Hint}" Grid.Row="2"/>
 
-        <Label x:Name="StatusLbl" Text="{Binding Description}" Grid.Column="1"/>
+        <Image x:Name="Img" HeightRequest="300" VerticalOptions="Start" Grid.Column="0" Grid.Row="3" Grid.RowSpan="2" Source="s0p.gif"/>
 
-        <HorizontalStackLayout x:Name="WordLetterLabels" Grid.Column="1" Grid.Row="1" Spacing="2.5"/>
+        <Label x:Name="StatusLbl" Text="{Binding Description}" Grid.Column="1" Grid.Row="1"/>
 
-        <Image x:Name="Img" HeightRequest="300" VerticalOptions="Start" Grid.Column="0" Grid.Row="2" Grid.RowSpan="2" Source="s0p.gif"/>
+        <HorizontalStackLayout x:Name="WordLetterLabels" Grid.Column="1" Grid.Row="2" Spacing="2.5"/>
 
-        <Grid x:Name="AllLetters" ColumnDefinitions="55,55,55,55,55" RowDefinitions="55,55,55,55,55,55" Grid.Column="1" Grid.Row="2">
-            <Button Text="A" Grid.Column="0" Grid.Row="0" Style="{StaticResource Letter}"/>
-            <Button Text="B" Grid.Column="1" Grid.Row="0" Style="{StaticResource Letter}"/>
-            <Button Text="C" Grid.Column="2" Grid.Row="0" Style="{StaticResource Letter}"/>
-            <Button Text="D" Grid.Column="3" Grid.Row="0" Style="{StaticResource Letter}"/>
-            <Button Text="E" Grid.Column="4" Grid.Row="0" Style="{StaticResource Letter}"/>
-            <Button Text="F" Grid.Column="0" Grid.Row="1" Style="{StaticResource Letter}"/>
-            <Button Text="G" Grid.Column="1" Grid.Row="1" Style="{StaticResource Letter}"/>
-            <Button Text="H" Grid.Column="2" Grid.Row="1" Style="{StaticResource Letter}"/>
-            <Button Text="I" Grid.Column="3" Grid.Row="1" Style="{StaticResource Letter}"/>
-            <Button Text="J" Grid.Column="4" Grid.Row="1" Style="{StaticResource Letter}"/>
-            <Button Text="K" Grid.Column="0" Grid.Row="2" Style="{StaticResource Letter}"/>
-            <Button Text="L" Grid.Column="1" Grid.Row="2" Style="{StaticResource Letter}"/>
-            <Button Text="M" Grid.Column="2" Grid.Row="2" Style="{StaticResource Letter}"/>
-            <Button Text="N" Grid.Column="3" Grid.Row="2" Style="{StaticResource Letter}"/>
-            <Button Text="O" Grid.Column="4" Grid.Row="2" Style="{StaticResource Letter}"/>
-            <Button Text="P" Grid.Column="0" Grid.Row="3" Style="{StaticResource Letter}"/>
-            <Button Text="Q" Grid.Column="1" Grid.Row="3" Style="{StaticResource Letter}"/>
-            <Button Text="R" Grid.Column="2" Grid.Row="3" Style="{StaticResource Letter}"/>
-            <Button Text="S" Grid.Column="3" Grid.Row="3" Style="{StaticResource Letter}"/>
-            <Button Text="T" Grid.Column="4" Grid.Row="3" Style="{StaticResource Letter}"/>
-            <Button Text="U" Grid.Column="0" Grid.Row="4" Style="{StaticResource Letter}"/>
-            <Button Text="V" Grid.Column="1" Grid.Row="4" Style="{StaticResource Letter}"/>
-            <Button Text="W" Grid.Column="2" Grid.Row="4" Style="{StaticResource Letter}"/>
-            <Button Text="X" Grid.Column="3" Grid.Row="4" Style="{StaticResource Letter}"/>
-            <Button Text="Y" Grid.Column="4" Grid.Row="4" Style="{StaticResource Letter}"/>
-            <Button Text="Z" Grid.Column="2" Grid.Row="5" Style="{StaticResource Letter}"/>
+        <Grid x:Name="AllLetters" ColumnDefinitions="55,55,55,55,55" RowDefinitions="55,55,55,55,55,55" Grid.Column="1" Grid.Row="3">
+            <Button Text="A" Grid.Column="0" Grid.Row="0" Style="{StaticResource Letter}" BindingContext="{Binding AllLetters[0]}"/>
+            <Button Text="B" Grid.Column="1" Grid.Row="0" Style="{StaticResource Letter}" BindingContext="{Binding AllLetters[1]}"/>
+            <Button Text="C" Grid.Column="2" Grid.Row="0" Style="{StaticResource Letter}" BindingContext="{Binding AllLetters[2]}"/>
+            <Button Text="D" Grid.Column="3" Grid.Row="0" Style="{StaticResource Letter}" BindingContext="{Binding AllLetters[3]}"/>
+            <Button Text="E" Grid.Column="4" Grid.Row="0" Style="{StaticResource Letter}" BindingContext="{Binding AllLetters[4]}"/>
+            <Button Text="F" Grid.Column="0" Grid.Row="1" Style="{StaticResource Letter}" BindingContext="{Binding AllLetters[5]}"/>
+            <Button Text="G" Grid.Column="1" Grid.Row="1" Style="{StaticResource Letter}" BindingContext="{Binding AllLetters[6]}"/>
+            <Button Text="H" Grid.Column="2" Grid.Row="1" Style="{StaticResource Letter}" BindingContext="{Binding AllLetters[7]}"/>
+            <Button Text="I" Grid.Column="3" Grid.Row="1" Style="{StaticResource Letter}" BindingContext="{Binding AllLetters[8]}"/>
+            <Button Text="J" Grid.Column="4" Grid.Row="1" Style="{StaticResource Letter}" BindingContext="{Binding AllLetters[9]}"/>
+            <Button Text="K" Grid.Column="0" Grid.Row="2" Style="{StaticResource Letter}" BindingContext="{Binding AllLetters[10]}"/>
+            <Button Text="L" Grid.Column="1" Grid.Row="2" Style="{StaticResource Letter}" BindingContext="{Binding AllLetters[11]}"/>
+            <Button Text="M" Grid.Column="2" Grid.Row="2" Style="{StaticResource Letter}" BindingContext="{Binding AllLetters[12]}"/>
+            <Button Text="N" Grid.Column="3" Grid.Row="2" Style="{StaticResource Letter}" BindingContext="{Binding AllLetters[13]}"/>
+            <Button Text="O" Grid.Column="4" Grid.Row="2" Style="{StaticResource Letter}" BindingContext="{Binding AllLetters[14]}"/>
+            <Button Text="P" Grid.Column="0" Grid.Row="3" Style="{StaticResource Letter}" BindingContext="{Binding AllLetters[15]}"/>
+            <Button Text="Q" Grid.Column="1" Grid.Row="3" Style="{StaticResource Letter}" BindingContext="{Binding AllLetters[16]}"/>
+            <Button Text="R" Grid.Column="2" Grid.Row="3" Style="{StaticResource Letter}" BindingContext="{Binding AllLetters[17]}"/>
+            <Button Text="S" Grid.Column="3" Grid.Row="3" Style="{StaticResource Letter}" BindingContext="{Binding AllLetters[18]}"/>
+            <Button Text="T" Grid.Column="4" Grid.Row="3" Style="{StaticResource Letter}" BindingContext="{Binding AllLetters[19]}"/>
+            <Button Text="U" Grid.Column="0" Grid.Row="4" Style="{StaticResource Letter}" BindingContext="{Binding AllLetters[20]}"/>
+            <Button Text="V" Grid.Column="1" Grid.Row="4" Style="{StaticResource Letter}" BindingContext="{Binding AllLetters[21]}"/>
+            <Button Text="W" Grid.Column="2" Grid.Row="4" Style="{StaticResource Letter}" BindingContext="{Binding AllLetters[22]}"/>
+            <Button Text="X" Grid.Column="3" Grid.Row="4" Style="{StaticResource Letter}" BindingContext="{Binding AllLetters[23]}"/>
+            <Button Text="Y" Grid.Column="4" Grid.Row="4" Style="{StaticResource Letter}" BindingContext="{Binding AllLetters[24]}"/>
+            <Button Text="Z" Grid.Column="2" Grid.Row="5" Style="{StaticResource Letter}" BindingContext="{Binding AllLetters[25]}"/>
         </Grid>
     </Grid>
 </ContentPage>

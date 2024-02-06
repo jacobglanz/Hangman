@@ -11,16 +11,15 @@ namespace HangmanSystem
 
         private static List<Word> AllWords = new();
         private static int _gamesWon = 0;
-        private static int _gamesPlayed = -1;
+        private static int _gamesPlayed = 0;
         private int _wrongGuesses = 0;
         private string _hint = "";
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        public event PropertyChangedEventHandler? GameEnded;
 
         public Game()
         {
-            GamesPlayed++;
+            SetAllLetters();;
             AllWords = EnglishDictionary.GetAllWords().Where(
                 w => w.Value.Length >= 7
                 && w.Value.Length <= 11
@@ -29,7 +28,7 @@ namespace HangmanSystem
                 && w.Value.All(c => char.IsLetter(c))
             ).ToList();
 
-            StartGame();
+            StartNewGame();
         }
 
         public static System.Drawing.Color ColorInitialBack = System.Drawing.Color.FromArgb(52, 152, 219);
@@ -53,7 +52,7 @@ namespace HangmanSystem
                 _gamesWon = value;
             }
         }
-        public static List<Letter> AllLetters { get; private set; } = SetAllLetters();
+        public List<Letter> AllLetters { get; private set; } = SetAllLetters();
 
         private static List<Letter> SetAllLetters()
         {
@@ -93,14 +92,22 @@ namespace HangmanSystem
             get => $"{7 - WrongGuesses} tries left\n{GamesWon}/{GamesPlayed} words";
         }
 
-        private void StartGame()
+        private void StartNewGame()
         {
             if (AllWords.Count > 0)
             {
                 CurrentWord = AllWords[rnd.Next(AllWords.Count)];
                 CurrentWord.Value = CurrentWord.Value.ToUpper();
                 AllWords.Remove(CurrentWord);
+                WordLetters.Clear();
                 CurrentWord.Value.ToList().ForEach(c => WordLetters.Add(new Letter()));
+                AllLetters.ForEach(l =>
+                {
+                    l.IsEnabled = true;
+                    l.BackColor = ColorInitialBack;
+                    l.Color = ColorWhiteInitialLetter;
+                });
+                this.WrongGuesses = 0;
             }
             else
             {
@@ -130,6 +137,7 @@ namespace HangmanSystem
 
                 if (DetectGameEnd())
                 {
+                    GamesPlayed++;
                     EndGame();
                 }
             }
@@ -160,13 +168,7 @@ namespace HangmanSystem
                 l.Color = ColorGrayDisabled;
             });
             await Task.Delay(2500);
-            GameEnded?.Invoke(this, new PropertyChangedEventArgs(""));
-            AllLetters.ForEach(l =>
-            {
-                l.IsEnabled = true;
-                l.BackColor = ColorInitialBack;
-                l.Color = ColorWhiteInitialLetter;
-            });
+            StartNewGame();
         }
 
         public void ReveleHint()

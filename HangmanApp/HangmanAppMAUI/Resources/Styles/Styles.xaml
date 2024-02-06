@@ -13,6 +13,7 @@
 
     <Style TargetType="HorizontalStackLayout">
         <Setter Property="HorizontalOptions" Value="Center"/>
+        <Setter Property="VerticalOptions" Value="Center"/>
         <Setter Property="Spacing" Value="10"/>
     </Style>
     

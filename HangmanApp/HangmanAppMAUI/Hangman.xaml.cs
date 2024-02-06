@@ -4,45 +4,54 @@ using Microsoft.Maui.Graphics.Text;
 
 public partial class Hangman : ContentPage
 {
-    Game game;
+    Game activeGame;
+    List<Button> lstButtons = new();
+    List<Game> lstGames = new() { new Game(), new Game(), new Game() };
+
     public Hangman()
     {
         InitializeComponent();
-        SetUpPage();
-        StartNewGame();
+
+        activeGame = lstGames[0];
+        BindingContext = activeGame;
+
+        GameRoom1Rb.BindingContext = lstGames[0];
+        GameRoom2Rb.BindingContext = lstGames[1];
+        GameRoom3Rb.BindingContext = lstGames[2];
+
+        lstGames.ForEach(g => g.PropertyChanged += Game_PropertyChanged);
+
+        this.Loaded += Hangman_Loaded;
     }
 
-    private void SetUpPage()
+    private void SetGameBoard()
     {
-        foreach(Button b in AllLetters.Children)
+        SetAllLettes();
+        SetWordLetters();
+        SetIamge();
+    }
+
+    private void SetAllLettes()
+    {
+        foreach (Button b in AllLetters.Children)
         {
-            Letter ltr = Game.AllLetters[AllLetters.IndexOf(b)];
             b.Clicked += LetterBtn_Clicked;
-            b.BindingContext = ltr;
             b.SetBinding(BackgroundColorProperty, nameof(Letter.BackColorMaui));
             b.SetBinding(Button.TextColorProperty, nameof(Letter.ColorMaui));
             b.SetBinding(Button.BorderColorProperty, nameof(Letter.ColorMaui));
             b.SetBinding(IsEnabledProperty, nameof(Letter.IsEnabled));
         }
-    }
-
-    private void StartNewGame()
-    {
-        game = new Game();
-        BindingContext = game;
-        game.PropertyChanged += Game_PropertyChanged;
-        game.GameEnded += Game_GameEnded;
-        SetWordLetters();
+        AllLetters.Children.ToList().ForEach(l => lstButtons.Add((Button)l));
     }
 
     private void SetWordLetters()
     {
         WordLetterLabels.Clear();
-        foreach (Letter l in game.WordLetters)
+        foreach (Letter l in activeGame.WordLetters)
         {
             var g = new Grid()
             {
-                BindingContext = game.WordLetters[WordLetterLabels.Children.Count],
+                BindingContext = activeGame.WordLetters[WordLetterLabels.Children.Count],
                 WidthRequest = 30,
                 HeightRequest = 30,
             };
@@ -60,54 +69,51 @@ public partial class Hangman : ContentPage
                 HeightRequest = 4,
                 VerticalOptions = LayoutOptions.End
             };
-            bv.SetBinding(BoxView.IsVisibleProperty, nameof(Letter.IsEnabled));
+            bv.SetBinding(IsVisibleProperty, nameof(Letter.IsEnabled));
             g.Add(bv);
             WordLetterLabels.Add(g);
         }
     }
 
-    private void ChangeImage()
+    private void SetIamge()
     {
-        Img.Source = game.WrongGuesses == 0 ? "s0p.gif" : $"s{game.WrongGuesses}p.png";
+        Img.Source = activeGame.WrongGuesses == 0 ? "s0p.gif" : $"s{activeGame.WrongGuesses}p.png";
     }
 
-    private void GuessLetter(string letter)
-    {
-        game.GuessLetter(letter);
-    }
 
-    private void ReveleHint()
-    {
-        game.ReveleHint();
-    }
-
-    private void Game_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-    {
-        if (e.PropertyName == nameof(game.WrongGuesses))
-        {
-            ChangeImage();
-        }
-    }
-
-    private void Game_GameEnded(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-    {
-        StartNewGame();
-    }
 
     private void LetterBtn_Clicked(object sender, EventArgs e)
     {
         if (sender is Button b)
         {
-            GuessLetter(b.Text);
+            activeGame.GuessLetter(b.Text);
         }
     }
-
     private void HintBtn_Clicked(object sender, EventArgs e)
     {
         if (string.IsNullOrEmpty(HintLbl.Text))
         {
-            ReveleHint();
+            activeGame.ReveleHint();
         }
     }
-
+    private void GameRoomRb_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+        if (sender is RadioButton rb && rb.IsChecked && rb.BindingContext is Game game)
+        {
+            activeGame = game;
+            BindingContext = activeGame;
+            SetGameBoard();
+        }
+    }
+    private void Game_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(Game.WrongGuesses))
+        {
+            SetIamge();
+        }
+    }
+    private void Hangman_Loaded(object sender, EventArgs e)
+    {
+        SetGameBoard();
+    }
 }
