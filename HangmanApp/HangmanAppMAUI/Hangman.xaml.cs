@@ -21,7 +21,7 @@ public partial class Hangman : ContentPage
 
         lstGames.ForEach(g => g.PropertyChanged += Game_PropertyChanged);
 
-        this.Loaded += Hangman_Loaded;
+        SetGameBoard();
     }
 
     private void SetGameBoard()
@@ -80,8 +80,6 @@ public partial class Hangman : ContentPage
         Img.Source = activeGame.WrongGuesses == 0 ? "s0p.gif" : $"s{activeGame.WrongGuesses}p.png";
     }
 
-
-
     private void LetterBtn_Clicked(object sender, EventArgs e)
     {
         if (sender is Button b)
@@ -110,10 +108,10 @@ public partial class Hangman : ContentPage
         if (e.PropertyName == nameof(Game.WrongGuesses))
         {
             SetIamge();
+            if (activeGame.WrongGuesses == 0)
+            {
+                SetWordLetters();
+            }
         }
-    }
-    private void Hangman_Loaded(object sender, EventArgs e)
-    {
-        SetGameBoard();
     }
 }
